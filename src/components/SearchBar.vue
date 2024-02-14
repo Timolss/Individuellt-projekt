@@ -1,3 +1,4 @@
+<!-- SearchBar.vue -->
 <template>
   <div>
     <input v-model="searchTerm" @input="emitSearch" placeholder="Sök recept..." />
@@ -5,18 +6,31 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+
 export default {
   props: {
-    value: String
+    modelValue: String
   },
-  data() {
-    return {
-      searchTerm: this.value
+  setup(props, { emit }) {
+    const searchTerm = ref(props.modelValue)
+
+    const emitSearch = () => {
+      emit('update:modelValue', searchTerm.value)
+      emit('search', searchTerm.value)
     }
-  },
-  methods: {
-    emitSearch() {
-      this.$emit('search', this.searchTerm)
+
+    // Watch for changes in the external modelValue
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        searchTerm.value = newValue
+      }
+    )
+
+    return {
+      searchTerm,
+      emitSearch
     }
   }
 }

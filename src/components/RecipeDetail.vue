@@ -8,20 +8,24 @@
 
 <script>
 import { fetchRecipeById } from '@/api'
+import { onMounted, ref } from 'vue'
 
 export default {
-  data() {
-    return {
-      recipe: {} // Hämtas från API baserat på route-parametern
+  setup() {
+    const recipe = ref({}) // Hämtas från API baserat på route-parametern
+
+    onMounted(() => {
+      const recipeId = $route.params.id
+      fetchRecipeDetails(recipeId)
+    })
+
+    const fetchRecipeDetails = async (id) => {
+      recipe.value = await fetchRecipeById(id)
     }
-  },
-  created() {
-    const recipeId = this.$route.params.id
-    this.fetchRecipeDetails(recipeId)
-  },
-  methods: {
-    async fetchRecipeDetails(id) {
-      this.recipe = await fetchRecipeById(id)
+
+    return {
+      recipe,
+      fetchRecipeDetails
     }
   }
 }

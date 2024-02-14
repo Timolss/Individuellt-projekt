@@ -1,10 +1,11 @@
+<!-- Recipes.vue -->
 <template>
   <div>
-    <!-- Sökkomponent -->
+    <!-- Search component -->
     <SearchBar v-model="searchTerm" @search="searchRecipes" />
 
-    <!-- Visa receptlista -->
-    <div v-for="recipe in filteredRecipes" :key="recipe.idMeal">
+    <!-- Display filtered recipe list -->
+    <div v-for="recipe in displayedRecipes" :key="recipe.idMeal">
       <router-link :to="{ name: 'RecipeDetail', params: { id: recipe.idMeal } }">
         {{ recipe.strMeal }}
       </router-link>
@@ -14,28 +15,48 @@
 
 <script>
 import SearchBar from './SearchBar.vue'
+import { ref, onMounted } from 'vue'
 import { fetchRecipes } from '@/api'
 
 export default {
   components: {
     SearchBar
   },
-  data() {
+  setup() {
+    const searchTerm = ref('')
+    const recipes = ref([])
+    const displayedRecipes = ref([])
+
+    const fetchRecipesData = async () => {
+      recipes.value = await fetchRecipes()
+      displayedRecipes.value = recipes.value
+    }
+
+    const searchRecipes = () => {
+      console.log('Search term:', searchTerm.value)
+
+      if (searchTerm.value.trim() !== '') {
+        // Filter recipes based on the search term
+        displayedRecipes.value = recipes.value.filter((recipe) =>
+          recipe.strMeal.toLowerCase().includes(searchTerm.value.toLowerCase())
+        )
+        console.log('Filtered recipes:', displayedRecipes.value)
+      } else {
+        // If the search term is empty, show all recipes
+        displayedRecipes.value = recipes.value
+      }
+
+      console.log('Updated recipes:', displayedRecipes.value)
+    }
+
+    onMounted(() => {
+      fetchRecipesData()
+    })
+
     return {
-      searchTerm: '',
-      recipes: [] // Hämtas från API
-    }
-  },
-  computed: {
-    filteredRecipes() {
-      return this.recipes.filter((recipe) =>
-        recipe.strMeal.toLowerCase().includes(this.searchTerm.toLowerCase())
-      )
-    }
-  },
-  methods: {
-    async searchRecipes() {
-      this.recipes = await fetchRecipes()
+      searchTerm,
+      displayedRecipes,
+      searchRecipes
     }
   }
 }
