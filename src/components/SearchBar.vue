@@ -1,9 +1,29 @@
 <!-- SearchBar.vue -->
 <template>
-  <div>
-    <input v-model="searchTerm" @input="emitSearch" placeholder="Sök recept..." />
+  <div class="search-container">
+    <input
+      v-model="searchTerm"
+      @input="emitSearch"
+      placeholder="Sök recept..."
+      class="search-input"
+    />
   </div>
 </template>
+
+/* SearchBar.vue */
+<style>
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Lägg till margin mot toppen */
+}
+
+.search-input {
+  width: 300px;
+  padding: 8px;
+  font-size: 16px;
+}
+</style>
 
 <script>
 import { ref, watch } from 'vue'
