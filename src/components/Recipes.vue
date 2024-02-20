@@ -1,4 +1,3 @@
-<!-- Recipes.vue -->
 <template>
   <div>
     <!-- Search component -->
@@ -19,6 +18,7 @@
   </div>
 </template>
 
+<!-- Recipe list styling -->
 <style>
 body {
   background-color: rgb(238, 219, 201);

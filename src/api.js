@@ -1,4 +1,3 @@
-// api.js
 import axios from 'axios'
 
 const mealURL = 'https://www.themealdb.com/api/json/v1/1'

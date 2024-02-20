@@ -29,8 +29,6 @@
 p {
   padding-bottom: 15px;
 }
-
-/* Övriga stylingregler kan läggas till efter behov */
 </style>
 
 <script>

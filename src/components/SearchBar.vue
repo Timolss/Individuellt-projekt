@@ -1,4 +1,3 @@
-<!-- SearchBar.vue -->
 <template>
   <div class="search-container">
     <input
@@ -10,7 +9,6 @@
   </div>
 </template>
 
-/* SearchBar.vue */
 <style>
 .search-container {
   display: flex;
@@ -40,7 +38,6 @@ export default {
       emit('search', searchTerm.value)
     }
 
-    // Watch for changes in the external modelValue
     watch(
       () => props.modelValue,
       (newValue) => {
