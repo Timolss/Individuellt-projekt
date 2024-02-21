@@ -29,6 +29,12 @@
 p {
   padding-bottom: 15px;
 }
+
+@media (max-width: 600px) {
+  .recipe-detail-container {
+    margin: 0 10px;
+  }
+}
 </style>
 
 <script>

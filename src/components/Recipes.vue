@@ -27,12 +27,12 @@ body {
 .recipes-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 70px 170px;
+  justify-content: center; /* center the cards on smaller screens */
+  margin: 70px 10px; /* reduce the margin on smaller screens */
 }
 
 .recipe-card {
-  width: calc(20% - 20px);
+  width: calc(40% - 20px); /* reduce the card width on smaller screens */
   box-sizing: border-box;
   text-align: center;
   margin: 10px;
@@ -54,6 +54,18 @@ body {
 .recipe-card span {
   display: block;
   margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .recipe-card {
+    width: calc(50% - 20px); /* adjust card width for screens between 600px and 768px */
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe-card {
+    width: calc(100% - 20px); /* full-width cards for screens 600px and below */
+  }
 }
 </style>
 
